@@ -8,7 +8,7 @@
 
 __author__ = 'liu rui'
 
-__version__ = '1.4'
+__version__ = '1.8'
 
 from argparse import ArgumentParser
 from enum import Enum, unique
@@ -18,6 +18,7 @@ from io import StringIO
 from datetime import datetime
 
 from jinja2 import Environment, FileSystemLoader
+import yaml
 
 
 @unique
@@ -25,16 +26,11 @@ class EnvType(Enum):
     stage = 1
     prod = 2
 
-_STAGE = {
-    'IM': {
-        'DNS': 'lingyi365',
-        'IP': '172.18.113.224',
-    }}
-_PROD = {'IM': {
-    'DNS': 'imly365',
-    'IP': '211.151.85.100',
-}}
 
+def load_config(envType, envDir):
+    config_file = os.path.join(envDir, "env", envType.name.lower() + '.yml')
+    with open(config_file) as f:
+        return yaml.load(f)
 
 env = Environment(loader=FileSystemLoader(
     os.path.join(os.path.dirname(__file__), 'templates')))
@@ -80,7 +76,7 @@ class Generator:
         self.__file = file
         self.__type = t
         self.__version = version
-        self.__data = _STAGE if t == 'stage' else _PROD
+        self.__data = load_config(EnvType[t], os.path.dirname(self.__file))
         self.__setup_file_name = 'setup-%s-%s.exe' % (
             self.__type,  self.__version)
         self.__progame_dir = os.path.join(

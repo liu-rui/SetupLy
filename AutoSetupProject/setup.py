@@ -14,7 +14,7 @@ setup(name='lyautosetup',
       include_package_data=True,  # 启用清单文件MANIFEST.in
       exclude_package_data={'': ['.gitignore']},
       zip_safe=False,
-      install_requires=['jinja2>=2.9'],
+      install_requires=['jinja2>=2.9', 'pyyaml'],
       entry_points='''
         [console_scripts]
         autosetup=autosetup.app:main
