@@ -35,7 +35,7 @@ function SetIMDNSInfo()
 	if File.DoesExist (hostFileName)  then
 		local content = TextFile.ReadToString(hostFileName);	
 
-		if String.Find(content , imIp) ~= -1 then
+		if String.Find(content , imIp.."	"..imDns) ~= -1 then
 			SetupData.WriteToLogFile("SetIMDNSInfo DNS mapper existed.\r\n");
 			return;	
 		end 

@@ -90,3 +90,5 @@ ENV/
 /setupfactory/dotnet4
 /.vscode
 .noseids
+
+tags
