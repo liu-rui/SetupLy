@@ -43,3 +43,14 @@ function SetIMDNSInfo()
 	Shell.Execute(SessionVar.Expand("%AppFolder%\\SetIMDNSInfo.bat") , "open","","",SW_HIDE); 
 	SetupData.WriteToLogFile("SetIMDNSInfo writed "..hostFileName.."; IMDNS:"..imDns.." IMIP:"..imIp..".\r\n");
 end
+
+
+
+function SetIMDNSInfo()
+	processes = System.EnumerateProcesses();
+
+	for j, filePath  in pairs(processes) do
+		file = String.SplitPath(filePath);
+
+	end
+end
