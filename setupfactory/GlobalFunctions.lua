@@ -23,34 +23,16 @@ function SetBrowserVersionFor64()
 		"11000",
 		REG_DWORD);
 	SetupData.WriteToLogFile("SetBrowserVersionFor64 \r\n");
-end
+end 
 
-function SetIMDNSInfo()
-	local hostFileName = SessionVar.Expand("%WindowsFolder%\\System32\\drivers\\etc\\hosts");
-	local imDns = SessionVar.Get("%IMDNS%");
-	local imIp = SessionVar.Get("%IMIP%");
+function closeApp()
+    file_to_check_for = String.Lower(SessionVar.Get("%ProcessFileName%"));
+    processes = System.EnumerateProcesses();
 
-	SetupData.WriteToLogFile("SetIMDNSInfo will write "..hostFileName.."; IMDNS:"..imDns.." IMIP:"..imIp..".\r\n");
-
-	if File.DoesExist (hostFileName)  then
-		local content = TextFile.ReadToString(hostFileName);	
-
-		if String.Find(content , imIp.."	"..imDns) ~= -1 then
-			SetupData.WriteToLogFile("SetIMDNSInfo DNS mapper existed.\r\n");
-			return;	
-		end 
-	end
-	Shell.Execute(SessionVar.Expand("%AppFolder%\\SetIMDNSInfo.bat") , "open","","",SW_HIDE); 
-	SetupData.WriteToLogFile("SetIMDNSInfo writed "..hostFileName.."; IMDNS:"..imDns.." IMIP:"..imIp..".\r\n");
-end
-
-
-
-function SetIMDNSInfo()
-	processes = System.EnumerateProcesses();
-
-	for j, filePath  in pairs(processes) do
-		file = String.SplitPath(filePath);
-
-	end
+    for j, file_path in pairs(processes) do
+        file = String.SplitPath(file_path);
+        if (String.Lower(file.Filename..file.Extension)) == file_to_check_for then
+            System.TerminateProcess(j);
+        end
+    end
 end

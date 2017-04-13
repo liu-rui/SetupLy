@@ -1,2 +1,1 @@
 SetBrowserVersion();
-SetIMDNSInfo();
