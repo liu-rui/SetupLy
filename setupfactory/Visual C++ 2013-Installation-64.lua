@@ -69,7 +69,7 @@ function isValidOS()
 		return true;
 	end
 	
-	return false
+	return true
 end
 
 -- Variables used in the installation actions:

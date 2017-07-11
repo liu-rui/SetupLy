@@ -54,7 +54,7 @@ function isValidDotNet4OS()
 		return true;
 	end
 		
-	return false;
+	return true;
 end
 
 
@@ -75,7 +75,7 @@ Click OK to abort the setup, or Cancel to continue with the application install.
 	local strRequirementString = [[.NET 4.5.2 cannot be installed due to the following requirements:
 
 ]];
-	local strRuntimeSupportFolder = SessionVar.Expand("%TempLaunchFolder%\\dotnet452");
+	local strRuntimeSupportFolder = SessionVar.Expand("%TempLaunchFolder%\\dotnet4.5.2");
 	local strExtractInstallerToPath = strRuntimeSupportFolder.."\\NDP452-KB2901907-x86-x64-AllOS-ENU.exe";
 	local strMessageFail = "";
 	local strCmdArgs = "";
